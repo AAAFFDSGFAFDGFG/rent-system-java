@@ -15,11 +15,18 @@ if errorlevel 1 (
 rem 部署机默认用 prod profile（不加载开发用 application-local.yml）；可预先设置环境变量覆盖
 if not defined SPRING_PROFILES_ACTIVE set SPRING_PROFILES_ACTIVE=prod
 
-rem 优先取脚本同目录的 jar（部署机），其次取 target 目录（开发机）
+rem 一切路径基于脚本自身所在目录，避免从别处调用时找错
+set "HERE=%~dp0"
+cd /d "%HERE%"
+
+rem 查找顺序：脚本同目录 jar（部署机）→ 同目录 target\ → 父目录 target\（开发机）
 set "JAR="
-for /F "delims=" %%j in ('dir /b rent-system-java-*.jar 2^>nul') do set "JAR=%%j"
+for /F "delims=" %%j in ('dir /b rent-system-java-*.jar 2^>nul') do set "JAR=%HERE%%%j"
 if not defined JAR (
-  for /F "delims=" %%j in ('dir /b target\rent-system-java-*.jar 2^>nul') do set "JAR=target\%%j"
+  for /F "delims=" %%j in ('dir /b target\rent-system-java-*.jar 2^>nul') do set "JAR=%HERE%target\%%j"
+)
+if not defined JAR (
+  for /F "delims=" %%j in ('dir /b ..\target\rent-system-java-*.jar 2^>nul') do set "JAR=%HERE%..\target\%%j"
 )
 if not defined JAR (
   echo [错误] 未找到 jar 包。请把 rent-system-java-*.jar 放在本脚本同目录，

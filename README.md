@@ -33,7 +33,7 @@ npm run dev
 cd rent-system-java/frontend && npm install && npm run build       # 产物写入 src/main/resources/static
 cd rent-system-java && ./mvnw -Pdeploy -DskipTests clean package   # -Pdeploy 排除开发敏感配置
 cp target/rent-system-java-*.jar deploy/                           # 同步干净 jar 到部署包
-java -jar target/rent-system-java-*.jar                            # 或 Windows 双击 start.bat
+java -jar target/rent-system-java-*.jar                            # 或 Windows 双击 deploy/start.bat
 ```
 
 ⚠️ 部署打包**必须带 `-Pdeploy`**：默认 `package` 会把 `application-local.yml`（含开发期真实 SendKey、`mock: true`）打进 jar，且 `application.yml` 默认激活 `local`，会导致部署机推送变成假推送并外泄密钥。
@@ -44,7 +44,7 @@ java -jar target/rent-system-java-*.jar                            # 或 Windows
 2. 安装 **JDK 21**（Temurin/Adoptium）与 **MySQL 8**
 3. 依次执行 `deploy/schema.sql`、`deploy/seed-data.sql`（脚本自带建库）
 4. 复制 `application-prod.yml.example` 为 `application-prod.yml` 并填写：MySQL 密码、`security.secret`、各成员真实 SendKey、`notify.mock: false`
-5. 双击 `start.bat` 启动（已默认 `SPRING_PROFILES_ACTIVE=prod`）；防火墙放行 8080
+5. 在 `deploy/` 内双击 `start.bat` 启动（已默认 `SPRING_PROFILES_ACTIVE=prod`）；防火墙放行 8080
 6. 详见 [deploy/DEPLOY.md](./deploy/DEPLOY.md)
 
 ## 核心功能
