@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: rent-system-java
+  profiles:
+    # 默认激活 local（application-local.yml 存在则生效；部署机无该文件时为空操作）
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  datasource:
+    # characterEncoding 用 UTF-8（新版 Connector/J 不接受 utf8mb4 字面量，会自动映射 utf8mb4）
+    url: jdbc:mysql://localhost:3306/rent_system?useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_0900_ai_ci&serverTimezone=Asia/Shanghai
+    username: ${RENT_DB_USER:root}
+    password: ${RENT_DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate        # 表结构由 prd文档/schema.sql 唯一创建，JPA 仅校验映射
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: Asia/Shanghai
+  sql:
+    init:
+      mode: never               # 建表由 schema.sql 显式执行，不在启动时自动跑
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+server:
+  address: 0.0.0.0              # 局域网可访问
+  port: 8080
+
+logging:
+  level:
+    com.example.rentsystemjava: info
+
+rent-system:
+  # SendKey 加密与 HMAC 校验的统一口令（生产部署机用环境变量 RENT_SECRET 覆盖）
+  security:
+    secret: ${RENT_SECRET:rent-system-local-dev-secret}
+  notify:
+    # Server酱 真实调用开关；false = 真实调用
+    mock: ${RENT_NOTIFY_MOCK:false}
+    # 企业微信机器人 webhook（可选降级通道，留空则降级时直接记 failed）
+    wecom-webhook: ${RENT_WECOM_WEBHOOK:}
+    # 通道调用超时（秒）
+    timeout-seconds: 10
+  init:
+    # 启动时自动初始化的成员（演示账号，明文仅用于初始化加密入库，可提交）
+    # 已存在且 send_key_hash 非占位串的成员跳过不覆盖
+    members:
+      - username: admin
+        send-key: SCT2026ABCD0001
+        phone: 138-****-0000
+      - username: mama
+        send-key: SCT2026ABCD0002
+        phone: 139-****-2222
+      - username: xiaoming
+        send-key: SCT2026ABCD0003
+        phone: 137-****-4444
+    # 本地/生产真实账号放 application-local.yml 或环境变量，不入版本库
+    extra-members: []

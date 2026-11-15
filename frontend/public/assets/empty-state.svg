@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180" fill="none" role="img" aria-label="空状态吉祥物">
+  <!-- 柔和光晕 -->
+  <circle cx="120" cy="96" r="74" fill="#FFD9A0" opacity="0.28"/>
+  <!-- 房子角色身体 -->
+  <rect x="68" y="96" width="104" height="62" rx="16" fill="#FFF6EC"/>
+  <!-- 屋顶 -->
+  <path d="M52 102 L120 46 L188 102 Z" fill="#F97362"/>
+  <path d="M52 102 L120 46 L188 102 Z" stroke="#E85D4A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 烟囱 + 烟 -->
+  <rect x="142" y="56" width="15" height="28" rx="4" fill="#FF9F68"/>
+  <circle cx="149" cy="47" r="5" fill="#FFD9B0" opacity="0.75"/>
+  <circle cx="155" cy="38" r="4" fill="#FFD9B0" opacity="0.5"/>
+  <!-- 眼睛 -->
+  <circle cx="100" cy="112" r="5.5" fill="#2B2118"/>
+  <circle cx="140" cy="112" r="5.5" fill="#2B2118"/>
+  <circle cx="102" cy="110" r="1.8" fill="#FFFFFF"/>
+  <circle cx="142" cy="110" r="1.8" fill="#FFFFFF"/>
+  <!-- 腮红 -->
+  <circle cx="90" cy="122" r="5" fill="#F97362" opacity="0.35"/>
+  <circle cx="150" cy="122" r="5" fill="#F97362" opacity="0.35"/>
+  <!-- 微笑 -->
+  <path d="M108 124 Q120 132 132 124" stroke="#2B2118" stroke-width="3" stroke-linecap="round"/>
+  <!-- 门 -->
+  <path d="M108 158 L108 136 Q108 130 114 130 L126 130 Q132 130 132 136 L132 158 Z" fill="#F97362"/>
+  <circle cx="127" cy="145" r="2" fill="#FFF6EC"/>
+  <!-- 举着的牌子 -->
+  <rect x="150" y="66" width="56" height="38" rx="10" fill="#FFFFFF" stroke="#F5A623" stroke-width="2.5"/>
+  <rect x="186" y="88" width="4" height="40" rx="2" fill="#FF9F68"/>
+  <circle cx="160" cy="85" r="5" fill="#2FAE7E"/>
+  <path d="M158 85 L159 90 M162 85 L161 90" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- 地面 -->
+  <ellipse cx="120" cy="166" rx="70" ry="7" fill="#F5A623" opacity="0.14"/>
+</svg>

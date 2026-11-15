@@ -1,0 +1,1 @@
+{"root":["./src/api.ts","./src/main.ts","./src/store.ts","./src/app.vue","./src/components/daymodal.vue","./src/components/detaildrawer.vue","./src/components/leasemodal.vue","./src/components/overviewcards.vue","./src/views/calendarview.vue","./src/views/configview.vue","./src/views/dashboardview.vue","./src/views/loginview.vue"],"version":"5.9.3"}

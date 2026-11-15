@@ -1,0 +1,39 @@
+# ==============================================================
+# 部署机配置模板
+# 用法：复制本文件为同目录下的 application-prod.yml，替换所有 <...> 占位值。
+# 注意：application-prod.yml 含真实 SendKey / 数据库密码，已被 .gitignore 排除，切勿提交。
+# ==============================================================
+
+spring:
+  datasource:
+    # 库名固定 rent_system；MySQL 不在本机或非 3306 端口时改 host/port
+    url: jdbc:mysql://localhost:3306/rent_system?useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_0900_ai_ci&serverTimezone=Asia/Shanghai
+    username: root
+    password: <MySQL root 密码>
+
+rent-system:
+  security:
+    # SendKey 加密口令，自定义一个长随机串。
+    # ⚠️ 首次设定后【永不更改】：改了则已入库密文全部解不开，全员无法登录且推送失败。
+    secret: <自定义长口令，如 32 位随机串>
+  notify:
+    # false = 真实调用 Server酱；true = 不调外网直接记 success（仅调试）
+    mock: false
+    # 可选降级通道：Server酱失败时走企业微信机器人；留空则记为 failed 待补发
+    # wecom-webhook: https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=<你的key>
+  init:
+    # ⚠️ members 是「整组替换」jar 内的演示账号，漏写的人不会自动建号，请把全部成员列全。
+    # seed-data.sql 预置 admin/mama/xiaoming 三个占位成员，同名配置会在启动时刷新为真实密文。
+    members:
+      - username: admin
+        send-key: <Server酱 SendKey>
+        phone: ""
+        digest-send-time: "09:00"
+      - username: mama
+        send-key: <Server酱 SendKey>
+        phone: ""
+        digest-send-time: "09:00"
+      - username: xiaoming
+        send-key: <Server酱 SendKey>
+        phone: ""
+        digest-send-time: "09:00"

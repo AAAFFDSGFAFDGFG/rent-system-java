@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" role="img" aria-label="暖色小屋">
+  <!-- 太阳 -->
+  <circle cx="166" cy="34" r="14" fill="#FFD9A0"/>
+  <circle cx="166" cy="34" r="18" fill="#FFD9A0" opacity="0.25"/>
+  <!-- 云 -->
+  <g fill="#FFFFFF" opacity="0.85">
+    <circle cx="42" cy="42" r="8"/>
+    <circle cx="52" cy="38" r="10"/>
+    <circle cx="62" cy="42" r="7"/>
+  </g>
+  <!-- 地面阴影 -->
+  <ellipse cx="100" cy="148" rx="72" ry="8" fill="#F5A623" opacity="0.16"/>
+  <!-- 房子主体 -->
+  <rect x="40" y="80" width="120" height="62" rx="12" fill="#FFF6EC"/>
+  <rect x="40" y="80" width="120" height="62" rx="12" fill="#FF9F68" opacity="0.06"/>
+  <!-- 屋顶 -->
+  <path d="M26 86 L100 28 L174 86 Z" fill="#F97362"/>
+  <path d="M26 86 L100 28 L174 86 Z" stroke="#E85D4A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 烟囱 -->
+  <rect x="128" y="40" width="16" height="30" rx="4" fill="#FF9F68"/>
+  <rect x="128" y="40" width="16" height="8" rx="3" fill="#E85D4A"/>
+  <!-- 烟 -->
+  <circle cx="136" cy="30" r="5" fill="#FFD9B0" opacity="0.75"/>
+  <circle cx="142" cy="21" r="4" fill="#FFD9B0" opacity="0.5"/>
+  <!-- 门 -->
+  <path d="M84 142 L84 112 Q84 104 92 104 L108 104 Q116 104 116 112 L116 142 Z" fill="#F97362"/>
+  <circle cx="111" cy="124" r="2.6" fill="#FFF6EC"/>
+  <!-- 窗户 -->
+  <rect x="52" y="94" width="24" height="24" rx="7" fill="#2FAE7E"/>
+  <rect x="124" y="94" width="24" height="24" rx="7" fill="#2FAE7E"/>
+  <path d="M64 94 L64 118 M52 106 L76 106" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+  <path d="M136 94 L136 118 M124 106 L148 106" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+  <!-- 灌木 -->
+  <circle cx="36" cy="143" r="9" fill="#2FAE7E" opacity="0.9"/>
+  <circle cx="164" cy="143" r="9" fill="#2FAE7E" opacity="0.9"/>
+  <circle cx="28" cy="146" r="6" fill="#FF9F68" opacity="0.85"/>
+  <circle cx="172" cy="146" r="6" fill="#FF9F68" opacity="0.85"/>
+  <!-- 门前小路 -->
+  <path d="M96 142 Q100 152 88 160 M104 142 Q100 152 112 160" stroke="#FFE3C4" stroke-width="4" stroke-linecap="round" fill="none"/>
+</svg>

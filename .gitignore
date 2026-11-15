@@ -1,0 +1,33 @@
+# Java
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# 前端
+frontend/node_modules/
+frontend/dist/
+
+# 前端构建产物（由 vite 直接输出到后端 static，不入版本库）
+src/main/resources/static/
+
+# 敏感本地配置（真实 SendKey / 数据库密码）
+src/main/resources/application-local.yml
+frontend/.env.local
+
+# 日志
+*.log
+
+# IDE 项目数据（CodeBuddy 计划文件，非源码）
+.codebuddy/
+
+# 浏览器验证截图（22 张 PNG，仅本地证据，不入库）
+verify/shots/
+
+# 部署包：构建产物与含真实密钥的配置不入库
+deploy/*.jar
+deploy/application-prod.yml
