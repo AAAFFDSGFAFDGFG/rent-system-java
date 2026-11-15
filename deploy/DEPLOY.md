@@ -160,6 +160,10 @@ rent-system:
 >
 > 另外，`seed-data.sql` 已预置 `admin / mama / xiaoming` 三个占位成员（哈希为 `__REPLACE...`）。启动时 `MemberInitializer` 会用同名配置把它们刷新成真实密文，日志显示「刷新占位 3 个」。
 > 若你在 prod 里改用了**别的名字**，这三个占位成员会保留占位哈希而无法登录（可在库中删除，或保留用户名与种子一致）。
+>
+> ⚠️ **`secret` 与已有数据库必须配套（实测坑）**：`MemberInitializer` 对「已初始化」的成员是**跳过不覆盖**的（保护界面上改过的推送开关/时间），只有哈希为 `__REPLACE...` 的占位成员才会被刷新。
+> 所以若把**已经跑过的数据库**搬到一台换了新 `secret` 的机器，旧密文与新密钥不匹配，登录会返回 `用户名或 SendKey 不正确`，日志却是「跳过已初始化 3 个」——看起来一切正常但谁也登不进去。
+> 部署机请按 §4 **全新执行 `schema.sql` + `seed-data.sql`**（占位成员会被自动刷新）；若确需迁移旧库，要么沿用原 `secret`，要么先清空 `member` 表再启动。
 
 ### 3.2 关于 SendKey 与登录
 - 登录用「用户名 + 本人 SendKey」，明文 SendKey 不落库：库里只存 AES-GCM 密文、HMAC 校验值、尾四位。
@@ -260,7 +264,8 @@ jar tf rent-system-java-0.0.1-SNAPSHOT.jar | findstr application
 |---|---|
 | 启动报 `Schema-validation: missing table` | 没执行 `schema.sql`，或连错数据库。按 §4 重新执行并核对 `spring.datasource.url` |
 | 启动报 `Communications link failure` | MySQL 没启动 / 端口不对 / 密码错。先 `mysql -u root -p -e "SELECT 1"` 验证 |
-| 登录提示「用户名或 SendKey 不正确」 | ① §3 的 `members` 没配或 SendKey 写错；② **`security.secret` 改过**，导致 HMAC 对不上 → 恢复原 secret，或清空 `member` 表重新执行 `seed-data.sql` 后重启 |
+| 登录提示「用户名或 SendKey 不正确」，但日志显示「跳过已初始化 N 个」 | `security.secret` 与数据库已有密文不匹配（旧库搬到新机器时最常见）。恢复原 secret；或清空 `member` 表、重新执行 `seed-data.sql` 后重启，让占位成员按新 secret 重新初始化 |
+| 登录提示「用户名或 SendKey 不正确」 | ① §3 的 `members` 没配或 SendKey 写错；② **`security.secret` 改过**，导致 HMAC 对不上 → 同上处理 |
 | 推送记录是 success 但微信没收到 | `mock: true` 了。改 `application-prod.yml` 为 `false` 并重启 |
 | 到点没推送 | ① 成员 `push_enabled=0`（配置页开关）；② `send_on_empty_day=0` 且当天无空置/临期事项；③ 推送时间只认整点，非整点顺延下一整点；④ 应用当时没运行 |
 | 手机打不开页面 | 防火墙没放行 8080（§1.3）；确认手机与部署机在同一 WiFi；用局域网 IP 而非 localhost |
